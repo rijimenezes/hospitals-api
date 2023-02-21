@@ -4,12 +4,14 @@ Vies for the user API.
 from rest_framework import generics, authentication, permissions
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
+from rest_framework.pagination import PageNumberPagination
 
 from user.serializers import (
   UserSerializer,
   AuthTokenSerializer
 )
 
+from user.models import User
 
 
 class CreateUserView(generics.CreateAPIView):
@@ -32,3 +34,10 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
   def get_object(self):
     """Retrieve and return the authenticated user."""
     return self.request.user
+
+
+class GetUsersView(generics.ListAPIView):
+  """List all users."""
+  serializer_class = UserSerializer
+  queryset = User.objects.all()
+  pagination_class = PageNumberPagination
