@@ -1,5 +1,4 @@
 import pytest
-from user import models
 from django.contrib.auth import get_user_model
 
 
